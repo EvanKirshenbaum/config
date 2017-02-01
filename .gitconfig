@@ -1,0 +1,7 @@
+[user]
+	name = Evan Kirshenbaum
+	email = evan.kirshenbaum@hp.com
+[core]
+	editor = emacs
+[push]
+	default = current
