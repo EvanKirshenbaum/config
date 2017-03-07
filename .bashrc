@@ -337,4 +337,7 @@ _git_ps_info ()  {
 #unset env
 PERL_MB_OPT="--install_base \"/cygdrive/c/Users/evank/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/cygdrive/c/Users/evank/perl5"; export PERL_MM_OPT;
- 
+
+# If a command is initiated with C-j (rather than enter), time it as well.
+bind '"\C-j": "\C-atime \C-m"'
+#export TIMEFORMAT='r: %R, u: %U, s: %S'
