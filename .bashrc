@@ -203,6 +203,7 @@ alias cdcpp='cdmds c++-api'
 alias cddoc='cdmds doc'
 alias cdgc='cdmds gc'
 alias cdcommon='cdmds common'
+alias cdpy='cdmds python-api'
 
 function mds()
 {
@@ -260,6 +261,11 @@ alias ldirs="sort ~/.named-dirs"
 #export GIT_PS1_SHOWCOLORHINTS=true
 #export PS1='\[\e]0;$TITLE_PREFIX\w\a\]\n\[\e[32m\][\D{%a %m/%d %T}] \[\e[33m\]\w\[\e[0m\] $(__git_ps1 " \[\e[1;35m\](%s)\[\e[0m\]")$(_git_ps_info)\n\[\e[36m\]\! \$\[\e[0m\] '
 export PS1='$(color)\[\e]0;${TITLE_PREFIX}\h : \w\a\]\n\[\e[32m\][\D{%a %m/%d %T}] \[\e[31m\]\h\[\e[32m\]:\[\e[33m\]\w\[\e[0m\] $(_git_ps_info)\n\[\e[36m\]\! \$\[\e[0m\] '
+
+if [ "$EMACS" == "t" ]; then
+export PS1='\n\[\e[32m\][\D{%a %m/%d %T}] \[\e[31m\]\h\[\e[32m\]:\[\e[33m\]\w\[\e[0m\] $(_git_ps_info)\n\[\e[36m\]\! \$\[\e[0m\] '
+fi    
+
 
 export LC_ALL=C
 export SVNROOT=/cygdrive/c/Users/evank/workspace
@@ -339,5 +345,10 @@ PERL_MB_OPT="--install_base \"/cygdrive/c/Users/evank/perl5\""; export PERL_MB_O
 PERL_MM_OPT="INSTALL_BASE=/cygdrive/c/Users/evank/perl5"; export PERL_MM_OPT;
 
 # If a command is initiated with C-j (rather than enter), time it as well.
-bind '"\C-j": "\C-atime \C-m"'
+if [ -z "$EMACS" ]; then
+   bind '"\C-j": "\C-atime \C-m"'
+fi   
 #export TIMEFORMAT='r: %R, u: %U, s: %S'
+
+export GCC540=$HOME/tools/gcc-5.4.0
+export GCC640=$HOME/tools/gcc-6.4.0
