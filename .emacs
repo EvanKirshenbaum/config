@@ -14,11 +14,19 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)
 
+(setq shell-file-name (or (getenv "SHELL") "/usr/bin/bash"))
+
 (add-to-list 'load-path "~/elisp/git")
 (add-to-list 'load-path "~/elisp")
 (add-to-list 'load-path "~/elisp/smart-mode-line-master")
+(add-to-list 'load-path "~/elisp/exec-path-from-shell-master")
 (require 'git)
 (require 'git-blame)
+
+(require 'exec-path-from-shell)
+(when (memq window-system '(x w32))
+  (exec-path-from-shell-initialize))
+
 
 (autoload 'sml/setup "smart-mode-line")
 (setq sml/no-confirm-load-theme t)
@@ -52,7 +60,6 @@
   "Major mode for editing GitHub Flavored Markdown files" t)
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 (add-to-list 'auto-mode-alist '("INSTALL\\.md\\'" . gfm-mode))
-
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
@@ -61,9 +68,15 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(column-number-mode t)
+ '(custom-enabled-themes (quote (tango-dark)))
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(size-indication-mode t)
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
