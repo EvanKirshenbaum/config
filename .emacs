@@ -6,6 +6,7 @@
 (bind-auto-mode "\\.h$" 'c++-mode)
 (add-hook 'c++-mode-hook 'linum-mode)
 (add-hook 'java-mode-hook 'linum-mode)
+(add-hook 'c++-mode-hook 'subword-mode)
 (set-face-foreground 'minibuffer-prompt "green")
 (set-face-foreground 'font-lock-comment-face "magenta")
 (global-set-key [?\C-x ?\g] 'goto-line)
@@ -67,8 +68,6 @@
 (add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
-
-
 
 
 (custom-set-variables
@@ -391,6 +390,7 @@ The document was typeset with
 '(custom-safe-themes
 (quote
  ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(printer-name "FinePrint")
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))
