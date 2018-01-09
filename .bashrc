@@ -99,7 +99,7 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:history'
 # application.  To override the alias instruction use a \ before, ie
 # \rm will call the real rm not the alias.
 
-alias ls='ls -F --color=auto'
+alias ls='ls -FA --color=auto'
 
 # Interactive operation...
 # alias rm='rm -i'
@@ -120,10 +120,12 @@ alias grep='grep -P --color'                     # show differences in colour
 # alias dir='ls --color=auto --format=vertical'
 # alias vdir='ls --color=auto --format=long'
 
-alias ll='ls -lahF --color=auto'                              # long list
+alias ll='ls -lAhF --color=auto'                              # long list
 alias m=less
 alias gzcat='gzip -dc'
 alias psg='ps -ef | grep'
+
+alias prename='perl ~/Perl/rename -v'
 
 # alias la='ls -A'                              # all but . and ..
 # alias l='ls -CF'                              #
