@@ -69,6 +69,38 @@
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
 
+(defun temp-set-theme (theme fn)
+  (let (old (if (listp custom-enabled-themes)
+                (car custom-enabled-themes)
+              'user))
+    (load-theme theme t)
+    (apply (list fn))
+                                        ;    (setq custom-enabled-themes old)
+    (enable-theme old)
+                                        ;    (enable-theme 'user)
+    ))
+
+(defun my-print-buffer ()
+  (interactive)
+  (temp-set-theme 'tango 'ps-print-buffer-with-faces)
+  )
+
+(defun my-timestamp ()
+  (let ((time (file-attribute-modification-time
+               (file-attributes (buffer-file-name)))))
+    (format-time-string "%m/%d/%y %I:%M %p" time)))
+
+(defun my-left-header2 ()
+  (if vc-mode
+      (let* ((s (substring-no-properties vc-mode))
+             (b (subseq s 5))
+             (d (ps-header-dirpart))
+             (ds (if d (concat d " ") ""))
+             )
+        (concat ds "(" b ")"))
+    (ps-header-dirpart)))
+
+(global-set-key [?\C-x ?5 ? p] 'my-print-buffer)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -387,10 +419,40 @@ The document was typeset with
  '(auto-insert-mode t)
  '(column-number-mode t)
  '(custom-enabled-themes (quote (tango-dark)))
-'(custom-safe-themes
-(quote
- ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(printer-name "FinePrint")
+ '(custom-safe-themes
+   (quote
+    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ '(grep-files-aliases
+   (quote
+    (("all" . "* .[!.]* ..?*")
+     ("el" . "*.el")
+     ("ch" . "*.[ch]")
+     ("c" . "*.c")
+     ("cc" . "*.cc *.cxx *.cpp *.C *.CC *.c++")
+     ("cchh" . "*.cc *.[ch]xx *.[ch]pp *.[CHh] *.CC *.HH *.[ch]++")
+     ("hh" . "*.hxx *.hpp *.[Hh] *.HH *.h++")
+     ("h" . "*.h")
+     ("l" . "[Cc]hange[Ll]og*")
+     ("m" . "[Mm]akefile*")
+     ("tex" . "*.tex")
+     ("texi" . "*.texi")
+     ("asm" . "*.[sS]")
+     ("c++" . "*.cpp *.h"))))
+ '(printer-name "Office Printer")
+ '(ps-font-size (quote (10 . 11)))
+ '(ps-left-header (quote (ps-get-buffer-name my-left-header2)))
+ '(ps-line-number t)
+ '(ps-line-number-font-size 9)
+ '(ps-line-number-start 5)
+ '(ps-line-number-step 5)
+ '(ps-lpr-command "/c/Program Files/gs/gs9.23/bin/gswin64c.exe")
+ '(ps-lpr-switches
+   (quote
+    ("-sDEVICE=mswinpr2" "-dNOPAUSE" "-dBATCH" "-dQUIET" "-sOutputFile=\"%printer%FinePrint\"" "-")))
+ '(ps-number-of-columns 1)
+ '(ps-printer-name t)
+ '(ps-printer-name-option nil)
+ '(ps-right-header (quote ("/pagenumberstring load" my-timestamp)))
  '(show-paren-mode t)
  '(size-indication-mode t)
  '(tool-bar-mode nil))

@@ -354,3 +354,4 @@ fi
 
 export GCC540=$HOME/tools/gcc-5.4.0
 export GCC640=$HOME/tools/gcc-6.4.0
+export CYGWIN='error_start=C:\cygwin64\bin\dumper.exe'
