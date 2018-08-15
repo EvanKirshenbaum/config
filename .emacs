@@ -102,6 +102,30 @@
 
 (global-set-key [?\C-x ?5 ? p] 'my-print-buffer)
 
+(defun my-prettify-c-block-comment (orig-fun &rest args)
+  (let* ((first-comment-line (looking-back "/\\*\\s-*.*"))
+         (star-col-num (when first-comment-line
+                         (save-excursion
+                           (re-search-backward "/\\*")
+                           (1+ (current-column))))))
+    (apply orig-fun args)
+    (when first-comment-line
+      (save-excursion
+        (newline)
+        (dotimes (cnt star-col-num)
+          (insert " "))
+        (move-to-column star-col-num)
+        (insert "*/"))
+      (move-to-column star-col-num) ; comment this line if using bsd style
+      (insert "*") ; comment this line if using bsd style
+     ))
+  ;; Ensure one space between the asterisk and the comment
+  (when (not (looking-back " "))
+    (insert " ")))
+(advice-add 'c-indent-new-comment-line :around #'my-prettify-c-block-comment)
+;; (advice-remove 'c-indent-new-comment-line #'my-prettify-c-block-comment)
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -425,6 +449,7 @@ The document was typeset with
  '(grep-files-aliases
    (quote
     (("all" . "* .[!.]* ..?*")
+     (c++ . "*.cpp *.h")
      ("el" . "*.el")
      ("ch" . "*.[ch]")
      ("c" . "*.c")
@@ -436,8 +461,7 @@ The document was typeset with
      ("m" . "[Mm]akefile*")
      ("tex" . "*.tex")
      ("texi" . "*.texi")
-     ("asm" . "*.[sS]")
-     ("c++" . "*.cpp *.h"))))
+     ("asm" . "*.[sS]"))))
  '(printer-name "Office Printer")
  '(ps-font-size (quote (10 . 11)))
  '(ps-left-header (quote (ps-get-buffer-name my-left-header2)))
