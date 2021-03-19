@@ -5,3 +5,5 @@
 	editor = emacs -nw
 [push]
 	default = current
+[diff]
+	colorMoved = default

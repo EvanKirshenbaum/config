@@ -1,3 +1,10 @@
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (defun bind-auto-mode (pattern mode)
   (setq auto-mode-alist
 	(cons (cons pattern mode)
@@ -6,6 +13,7 @@
 (bind-auto-mode "\\.h$" 'c++-mode)
 (add-hook 'c++-mode-hook 'linum-mode)
 (add-hook 'java-mode-hook 'linum-mode)
+(add-hook 'python-mode-hook 'linum-mode)
 (add-hook 'c++-mode-hook 'subword-mode)
 (set-face-foreground 'minibuffer-prompt "green")
 (set-face-foreground 'font-lock-comment-face "magenta")
@@ -17,6 +25,7 @@
 
 (global-set-key [?\C-z] 'undo)
 (global-set-key [?\C-x ?/] 'comment-region)
+(global-set-key [?\C-x ?\C-/] 'rgrep)
 
 
 (setq shell-file-name (or (getenv "SHELL") "/usr/bin/bash"))
@@ -69,21 +78,29 @@
 (autoload 'csv-mode "csv-mode"
   "Major mode for editing comma-separated value files." t)
 
-(defun temp-set-theme (theme fn)
-  (let (old (if (listp custom-enabled-themes)
+(defun temp-set-theme (theme fn &rest args)
+  (let ((old (if (listp custom-enabled-themes)
                 (car custom-enabled-themes)
-              'user))
-    (load-theme theme t)
-    (apply (list fn))
+              'user)))
+    (enable-theme theme)
+    (apply fn args)
                                         ;    (setq custom-enabled-themes old)
     (enable-theme old)
                                         ;    (enable-theme 'user)
     ))
 
-(defun my-print-buffer ()
-  (interactive)
-  (temp-set-theme 'tango 'ps-print-buffer-with-faces)
+(load-theme 'tango t t)
+(defun my-print-buffer (prefix)
+  (interactive "P")
+  (if prefix
+      (temp-set-theme 'tango 'ps-print-region-with-faces (point) (mark))      
+    (temp-set-theme 'tango 'ps-print-buffer-with-faces)
+    )
   )
+
+; (ps-extend-face '(font-lock-comment-face "magenta" "white" nil) 'MERGE)
+; (ps-extend-face '(font-lock-comment-delimiter-face "magenta" "white" nil) 'MERGE)
+
 
 (defun my-timestamp ()
   (let ((time (file-attribute-modification-time
@@ -100,7 +117,7 @@
         (concat ds "(" b ")"))
     (ps-header-dirpart)))
 
-(global-set-key [?\C-x ?5 ? p] 'my-print-buffer)
+(global-set-key [?\C-x ?5 ?p] 'my-print-buffer)
 
 (defun my-prettify-c-block-comment (orig-fun &rest args)
   (let* ((first-comment-line (looking-back "/\\*\\s-*.*"))
@@ -449,7 +466,7 @@ The document was typeset with
  '(grep-files-aliases
    (quote
     (("all" . "* .[!.]* ..?*")
-     (c++ . "*.cpp *.h")
+     ("c++" . "*.cpp *.h")
      ("el" . "*.el")
      ("ch" . "*.[ch]")
      ("c" . "*.c")
@@ -469,7 +486,7 @@ The document was typeset with
  '(ps-line-number-font-size 9)
  '(ps-line-number-start 5)
  '(ps-line-number-step 5)
- '(ps-lpr-command "/c/Program Files/gs/gs9.23/bin/gswin64c.exe")
+ '(ps-lpr-command "/c/Program Files/gs/gs9.52/bin/gswin64c.exe")
  '(ps-lpr-switches
    (quote
     ("-sDEVICE=mswinpr2" "-dNOPAUSE" "-dBATCH" "-dQUIET" "-sOutputFile=\"%printer%FinePrint\"" "-")))
@@ -486,3 +503,4 @@ The document was typeset with
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 113 :width normal)))))
+(put 'narrow-to-region 'disabled nil)

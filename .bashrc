@@ -126,6 +126,7 @@ alias gzcat='gzip -dc'
 alias psg='ps -ef | grep'
 
 alias prename='perl ~/Perl/rename -v'
+alias eptitle='perl ~/Perl/episode'
 
 # alias la='ls -A'                              # all but . and ..
 # alias l='ls -CF'                              #
@@ -234,6 +235,14 @@ function gd()
 }
 
 alias ldirs="sort ~/.named-dirs"
+
+function mvextra() {
+    dir=$2;
+    type=$1;
+    mv "${dir}" "/x/Video/${type}/${dir}/Extras"
+}
+
+
 
 
 # Functions
@@ -354,4 +363,6 @@ fi
 
 export GCC540=$HOME/tools/gcc-5.4.0
 export GCC640=$HOME/tools/gcc-6.4.0
-export CYGWIN='error_start=C:\cygwin64\bin\dumper.exe'
+export CYGWIN='error_start=C:\cygwin64\bin\dumper.exe -d %1 %2'
+
+export DISPLAY=:0.0
