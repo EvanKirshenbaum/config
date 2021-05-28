@@ -366,3 +366,10 @@ export GCC640=$HOME/tools/gcc-6.4.0
 export CYGWIN='error_start=C:\cygwin64\bin\dumper.exe -d %1 %2'
 
 export DISPLAY=:0.0
+
+export ANTL4JAR=$(cygpath -w /usr/local/lib/antlr-4.9.2-complete.jar)
+
+export CLASSPATH=".;$ANTL4JAR;$CLASSPATH"
+alias antlr4='java -Xmx500M -cp "$ANTLR4JAR:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java -Xmx500M -cp "$ANTLR4JAR:$CLASSPATH" org.antlr.v4.gui.TestRig' 
+

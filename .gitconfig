@@ -3,7 +3,10 @@
 	email = evan.kirshenbaum@hp.com
 [core]
 	editor = emacs -nw
+	autocrlf = true
 [push]
 	default = current
 [diff]
 	colorMoved = default
+[pull]
+	rebase = false

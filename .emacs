@@ -11,9 +11,14 @@
 	      auto-mode-alist)))
 
 (bind-auto-mode "\\.h$" 'c++-mode)
+(bind-auto-mode "\\.g4" 'antlr-mode)
+(bind-auto-mode "\\.ino$" 'c++-mode)    ;Arduino code
+
 (add-hook 'c++-mode-hook 'linum-mode)
 (add-hook 'java-mode-hook 'linum-mode)
 (add-hook 'python-mode-hook 'linum-mode)
+(add-hook 'antlr-mode-hook 'linum-mode)
+
 (add-hook 'c++-mode-hook 'subword-mode)
 (set-face-foreground 'minibuffer-prompt "green")
 (set-face-foreground 'font-lock-comment-face "magenta")
@@ -22,6 +27,8 @@
 (global-set-key [?\C-x ?'] 'compare-windows)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)
+
+
 
 (global-set-key [?\C-z] 'undo)
 (global-set-key [?\C-x ?/] 'comment-region)
@@ -504,3 +511,4 @@ The document was typeset with
  ;; If there is more than one, they won't work right.
  '(default ((t (:family "Lucida Console" :foundry "outline" :slant normal :weight normal :height 113 :width normal)))))
 (put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
