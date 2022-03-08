@@ -242,7 +242,30 @@ function mvextra() {
     mv "${dir}" "/x/Video/${type}/${dir}/Extras"
 }
 
+function ripdvd() {
+    name=$*
+    file=h:\\Images\\DVDs\\Recent\\${name}
+    cmd="robocopy e: ${file} /e /z /eta"
+    echo ${cmd}
+    ${cmd}
+}
 
+function rgrep_pat() {
+    case $1 in
+        python | py)
+            echo --include '*.py' --include '*.pyi'
+            ;;
+        cpp | c++)
+            echo --include '*.cpp' --include '*.h'
+            ;;
+        *)
+            echo ''
+            ;;
+    esac
+}
+
+alias pygrep="grep -r --include '*.py' --include '*.pyi'"
+alias cppgrep="grep -r --include '*.cpp' --include '*.h'"
 
 
 # Functions
