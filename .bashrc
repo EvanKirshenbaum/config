@@ -243,8 +243,8 @@ function mvextra() {
 }
 
 function ripdvd() {
-    name=$*
-    file=h:\\Images\\DVDs\\Recent\\${name}
+    name="$*"
+    file="h:\\Images\\DVDs\\Recent\\${name}"
     cmd="robocopy e: ${file} /e /z /eta"
     echo ${cmd}
     ${cmd}
@@ -294,7 +294,7 @@ alias cppgrep="grep -r --include '*.cpp' --include '*.h'"
 #export GIT_PS1_SHOWDIRTYSTATE=true
 #export GIT_PS1_SHOWCOLORHINTS=true
 #export PS1='\[\e]0;$TITLE_PREFIX\w\a\]\n\[\e[32m\][\D{%a %m/%d %T}] \[\e[33m\]\w\[\e[0m\] $(__git_ps1 " \[\e[1;35m\](%s)\[\e[0m\]")$(_git_ps_info)\n\[\e[36m\]\! \$\[\e[0m\] '
-export PS1='$(color)\[\e]0;${TITLE_PREFIX}\h : \w\a\]\n\[\e[32m\][\D{%a %m/%d %T}] \[\e[31m\]\h\[\e[32m\]:\[\e[33m\]\w\[\e[0m\] $(_git_ps_info)\n\[\e[36m\]\! \$\[\e[0m\] '
+export PS1='$(color)\[\e]0;${TITLE_PREFIX}\W [\w on \h]\a\]\n\[\e[32m\][\D{%a %m/%d %T}] \[\e[31m\]\h\[\e[32m\]:\[\e[33m\]\w\[\e[0m\] $(_git_ps_info)\n\[\e[36m\]\! \$\[\e[0m\] '
 
 if [ "$EMACS" == "t" ]; then
 export PS1='\n\[\e[32m\][\D{%a %m/%d %T}] \[\e[31m\]\h\[\e[32m\]:\[\e[33m\]\w\[\e[0m\] $(_git_ps_info)\n\[\e[36m\]\! \$\[\e[0m\] '

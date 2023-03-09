@@ -8,5 +8,10 @@
 	default = current
 [diff]
 	colorMoved = default
+	tool = meld
 [pull]
 	rebase = false
+[difftool "meld"]
+	cmd = meld `cygpath -w "$LOCAL"` "$REMOTE"
+[difftool]
+	prompt = false
