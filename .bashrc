@@ -224,7 +224,8 @@ function nd()
 
 function gd()
 {
-    dir=`grep "^${1} " ~/.named-dirs | cut -f2- -d ' '`
+#    dir=`grep "^${1} " ~/.named-dirs | cut -f2- -d ' '`
+    dir=`python ~/Python/reldir.py "$@"`
 #    echo $dir
     if [ "${dir}:" == ":" ]; then
         echo No named dir \"${1}\"
