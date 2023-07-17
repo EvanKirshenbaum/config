@@ -17,6 +17,7 @@ PATH=$PATH:$HOME/bin
 PATH=/usr/lib/lapack:$PATH
 PATH=$JAVADIR:$PATH
 PATH=$PATH:$ORIGINAL_PATH
+PATH=$PATH:$HOME/AppData/Local/Pandoc
 #PATH=$PATH:/cygdrive/c/Gradle/gradle-5.6.1/bin
 
 

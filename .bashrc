@@ -235,6 +235,8 @@ function gd()
     fi
 }
 
+alias gdtv="gd tv"
+
 alias ldirs="sort ~/.named-dirs"
 
 function mvextra() {
