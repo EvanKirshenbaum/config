@@ -5,6 +5,9 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+(setq ispell-program-name "/usr/bin/aspell")
+(setq ispell-list-command "list")
+
 (defun bind-auto-mode (pattern mode)
   (setq auto-mode-alist
 	(cons (cons pattern mode)
@@ -28,7 +31,9 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 8)
 
-
+(add-hook 'visual-line-mode 'text-mode)
+(add-hook 'flyspell-mode 'text-mode)
+(add-hook 'typo-mode 'text-mode)
 
 (global-set-key [?\C-z] 'undo)
 (global-set-key [?\C-x ?/] 'comment-region)
